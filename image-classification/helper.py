@@ -129,10 +129,25 @@ def load_preprocess_training_batch(batch_id, batch_size):
     Load the Preprocessed Training data and return them in batches of <batch_size> or less
     """
     filename = 'preprocess_batch_' + str(batch_id) + '.p'
-    features, labels = pickle.load(open(filename, mode='rb'))
+    file = open(filename, mode='rb')
+    features, labels = pickle.load(file)
+    file.close()
 
     # Return the training data in batches of size <batch_size> or less
     return batch_features_labels(features, labels, batch_size)
+
+
+def load_preprocess_data(batch_id):
+    """
+    Load the Preprocessed Training data and return them in batches of <batch_size> or less
+    """
+    filename = 'preprocess_batch_' + str(batch_id) + '.p'
+    file = open(filename, mode='rb')
+    features, labels = pickle.load(file)
+    # trial: try to close the file to avoid memory error 
+    file.close()
+    # Return the training data in batches of size <batch_size> or less
+    return (features,labels)
 
 
 def display_image_predictions(features, labels, predictions):
